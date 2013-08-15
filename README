@@ -2,7 +2,16 @@ Convert a CSV file from FakeNameGenerator to a vcard
 Output will be UTF-8
 
 Written by Hubert Figuiere <hub@mozilla.com>
+(c) 2013 Mozilla Corporation
 
 This is used for testing FirefoxOS
 
 License is MPL 2.0
+
+Requirements:
+
+Perl 5
+File::BOM
+Text::CSV
+Text::vCard
+

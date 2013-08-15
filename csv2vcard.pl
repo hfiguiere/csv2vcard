@@ -4,6 +4,7 @@
 # Output will be UTF-8
 #
 # Written by Hubert Figuiere <hub@mozilla.com>
+# (c) 2013 Mozilla Corporation
 #
 # This is used for testing FirefoxOS
 #
@@ -17,11 +18,12 @@ use Text::vCard::Addressbook;
 
 my @rows;
 my $csv = Text::CSV->new ( { binary => 1 } )  # should set binary attribute.
-                 or die "Cannot use CSV: ".Text::CSV->error_diag ();
+                 || die "Cannot use CSV: ".Text::CSV->error_diag ();
 my $ab = Text::vCard::Addressbook->new();
 
 #open my $fh, "<:encoding(utf8)", "test.csv"
-open_bom(my $fh, "test.csv", ":utf8") or die "test.csv: $!";
+open_bom(my $fh, "test.csv", ":utf8")
+    || die "test.csv: $!";
 
 # Read the fields from the CSV
 my $header = $csv->getline($fh);
@@ -62,9 +64,12 @@ while ( my $row = $csv->getline_hr($fh)) {
     $vcard->title($row->{'Occupation'});
 
 }
-$csv->eof or $csv->error_diag();
+$csv->eof || $csv->error_diag();
 close $fh;
 
 # Output the VCF in utf8
-open my $out, ">:encoding(utf8)", "address.vcf" or die;
+open my $out, ">:encoding(utf8)", "address.vcf"
+    || die "Couldn't write address.vcf";;
 print $out $ab->export;
+close $out;
+
