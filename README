@@ -1,0 +1,8 @@
+Convert a CSV file from FakeNameGenerator to a vcard
+Output will be UTF-8
+
+Written by Hubert Figuiere <hub@mozilla.com>
+
+This is used for testing FirefoxOS
+
+License is MPL 2.0
