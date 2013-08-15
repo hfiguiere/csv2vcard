@@ -23,7 +23,6 @@ my $csv = Text::CSV->new ( { binary => 1 } )  # should set binary attribute.
                  || die "Cannot use CSV: ".Text::CSV->error_diag ();
 my $ab = Text::vCard::Addressbook->new();
 
-#open my $fh, "<:encoding(utf8)", "test.csv"
 open_bom(my $fh, "test.csv", ":utf8")
     || die "test.csv: $!";
 
@@ -61,6 +60,10 @@ while ( my $row = $csv->getline_hr($fh)) {
     $node = $vcard->add_node({ node_type => 'TEL' });
     $node->add_types('type=HOME');
     $node->value($row->{'TelephoneNumber'});
+
+    # birthday date is mm/dd/yyyy in the CSV - need conversion
+    my ($m, $d, $y) = split('/', $row->{'Birthday'});
+    $vcard->bday(sprintf("%04d%02d%02d", $y,$m,$d));
 
     $vcard->email($row->{'EmailAddress'});
     $vcard->title($row->{'Occupation'});
