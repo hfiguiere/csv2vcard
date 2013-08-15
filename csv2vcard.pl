@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -w
 
 # Convert a CSV file from FakeNameGenerator to a vcard
 # Output will be UTF-8
@@ -9,6 +9,8 @@
 # This is used for testing FirefoxOS
 #
 # License is MPL 2.0
+
+use strict;
 
 use File::BOM qw( :all );
 use Text::CSV;
