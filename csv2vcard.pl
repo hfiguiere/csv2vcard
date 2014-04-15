@@ -22,8 +22,10 @@ my @rows;
 my $csv = Text::CSV->new ( { binary => 1 } )  # should set binary attribute.
                  || die "Cannot use CSV: ".Text::CSV->error_diag ();
 my $ab = Text::vCard::Addressbook->new();
+my $fh;
 
-open_bom(my $fh, "test.csv", ":utf8")
+open_bom($fh, "test.csv", ":utf8")
+    || open($fh, "<:encoding(utf8)", "test.csv")
     || die "test.csv: $!";
 
 # Read the fields from the CSV
