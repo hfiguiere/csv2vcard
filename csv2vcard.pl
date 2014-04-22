@@ -63,10 +63,11 @@ while ( my $row = $csv->getline_hr($fh)) {
     $node->add_types('type=HOME');
     $node->value($row->{'TelephoneNumber'});
 
-    # birthday date is mm/dd/yyyy in the CSV - need conversion
-    my ($m, $d, $y) = split('/', $row->{'Birthday'});
-    $vcard->bday(sprintf("%04d%02d%02d", $y,$m,$d));
-
+    if ( defined $row->{'Birthday'} ) {
+        # birthday date is mm/dd/yyyy in the CSV - need conversion
+        my ($m, $d, $y) = split('/', $row->{'Birthday'});
+        $vcard->bday(sprintf("%04d%02d%02d", $y,$m,$d));
+    }
     $vcard->email($row->{'EmailAddress'});
     $vcard->title($row->{'Occupation'});
 
